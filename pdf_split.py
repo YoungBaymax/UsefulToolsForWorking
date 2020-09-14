@@ -2,14 +2,16 @@
 # -*- encoding: utf-8 -*-
 '''
 作者：大白
-功能：把目标pdf文件中的一些pages，整合出来放到一个pdf中
-参数说明：
-dst_file：   要拆分的文件
-pages：      拆分文件中的页码和另存为的文件名
-save_dir:    拆分后，文件存储的路径;默认为工作目录中
+时间：2020.9.14完善
+功能：function
+    把目标pdf文件中的一些pages，整合出来放到一个pdf中
+参数说明：paramters description
+    dst_file：   要拆分的文件
+    pages：      拆分文件中的页码和另存为的文件名
+    save_dir:    拆分后，文件存储的路径;默认为工作目录中
 
-使用范例：
-python pdf_split.py --dst_file "STEMI文章.pdf" --save_dir 'C:\\User\\Desktop\\pdf_split_folder' --pages "1,2,1_2.pdf;3,4-5,3_5.pdf;6-8,6_8.pdf"
+使用范例：how to use it
+    python pdf_split.py --dst_file "STEMI文章.pdf" --save_dir 'C:\\User\\Desktop\\pdf_split_folder' --pages "1,2,1_2.pdf;3,4-5,3_5.pdf;6-8,6_8.pdf"
 '''
 
 # import lib
