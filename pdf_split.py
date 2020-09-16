@@ -36,6 +36,8 @@ def pdf_splitter(dst_file, pages_file_name, save_dir):
     if '' in save_files:       #没有if 的判断，会报错
         save_files.remove('')  # 输入的--pages中,以";"结尾,则split后,在数组中出现最后一个为''
 
+    pdf_reader = PdfFileReader(dst_file)
+
     for each_save_file in save_files:
         each_page_file = each_save_file.split(',')
         file_name = os.path.join(save_dir, each_page_file[-1].strip())
@@ -53,7 +55,6 @@ def pdf_splitter(dst_file, pages_file_name, save_dir):
                 page = [int(page)-1]
             page_nums.extend(page)
 
-        pdf_reader = PdfFileReader(dst_file)
         pdf_writer = PdfFileWriter()
         for page in page_nums:
             pdf_writer.addPage(pdf_reader.getPage(page))
