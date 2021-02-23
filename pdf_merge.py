@@ -10,7 +10,7 @@
     save_file_name:     组合后生成的pdf文件名
 
 使用范例：how to use it
-    python pdf_merge.py --files_pages "1,2,1_2.pdf;3,4-5,3_5.pdf;6-8,6_8.pdf" --save_file_name "pdfmerge.pdf"
+    python pdf_merge.py --files_pages "1.pdf,1,2,3,4-7;2.pdf,3,2,5-9" --save_file_name "pdfmerge.pdf"
 '''
 import os
 from PyPDF2 import PdfFileReader, PdfFileWriter
@@ -25,10 +25,11 @@ def pdf_merger(files_pages, save_file_name):
 
     for file_page in merge_files:
         file_page = file_page.split(',')
-
+        
         file_name = file_page[0]
 
-        pdf_reader = PdfFileReader(file_name)
+        pdf_reader = PdfFileReader(open(file_name, 'rb'))
+        
 
         page_nums = []
 
@@ -46,15 +47,21 @@ def pdf_merger(files_pages, save_file_name):
                 page_nums.extend(page)
 
         for page in page_nums:
-            pdf_writer.addPage(pdf_reader.getPage(page))
+            page = pdf_reader.getPage(page)
+            pdf_writer.addPage(page)
 
     with open(save_file_name, 'wb') as out:
         pdf_writer.write(out)
-        print('Created: {}'.format(save_file_name))
+
+    print('Created: {}'.format(save_file_name))
+
+    
+    
+    
 
 if __name__ == "__main__":
 
-    parser = argparse.ArgumentParser(usage="it's usage tip.", description="python pdf_merge.py --files_pages '1,2,3,file_name.pdf;78-98,file2_name.pdf' --save_file_name 'mergepdfs.pdf'")
+    parser = argparse.ArgumentParser(usage="it's usage tip.", description="python pdf_merge.py --files_pages '1.pdf,1,2,3,4-7;2.pdf,3,2,5-9' --save_file_name 'mergepdfs.pdf'")
     parser.add_argument("--files_pages", "-f", help="想要组合的文件及其页码，例：'1.pdf,1,2,3,4-7;2.pdf,3,2,5-9'")
     parser.add_argument("--save_file_name", "-s", help="保存成的文件名")
 
@@ -64,3 +71,9 @@ if __name__ == "__main__":
     save_file_name = args.save_file_name
     
     pdf_merger(files_pages, save_file_name)
+
+
+    # 注意事项：在组合多张电子发票时，除了第一页的发票有右下角的盖章以外，其它页码上面没有相关的盖章
+    # 有理由相信，在组合其它的多个pdf时，也可能发生遗漏的问题
+
+    
