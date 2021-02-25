@@ -63,4 +63,4 @@ if os.path.exists(file_name):
     print(file_name, "has been removed.")
     os.remove(file_name)
 report_doc.save(file_name)
-docx2pdf.word2pdf(r"E:\有用的小工具整理\PythonWord\testDemo.docx")
+docx2pdf.word2pdf("./testDemo.docx")
